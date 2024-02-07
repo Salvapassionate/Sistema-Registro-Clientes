@@ -198,7 +198,7 @@ export const EmployeeList = () => {
                 console.log(response.data);
                 const employeesData = response.data.rows; // Extrayendo solo los datos de los clientes
                 setEmployees(employeesData);
-                alert(response.data);
+                alert("Se trae los registros");
                
             })
             .catch(error => {
