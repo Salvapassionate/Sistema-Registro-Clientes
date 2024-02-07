@@ -1,0 +1,18 @@
+COMANDOS REACT JS GIT
+
+Version
+
+node --version
+
+Advertencia: Se instala el npx recien con 
+
+npm install -g npm@latest
+
+crear app:
+npx create-react-app nombre_app
+
+se mueve al directorio:
+cd nombre_app
+
+desplegar la app o iniciar
+npm start
