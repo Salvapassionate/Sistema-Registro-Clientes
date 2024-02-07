@@ -1,18 +1,44 @@
-COMANDOS REACT JS GIT
+Tecnologias a usar:
+React
+PostgreSQL
+Javascript
+HTML5
+CSS
+Tockens
+Restful
+Bootstrap
+Servicio de Consumo api externa con HTTp
 
-Version
+Librerias a descargar
 
-node --version
+Instalar librerias en carpeta sistema: 
+npm install react react-dom
 
-Advertencia: Se instala el npx recien con 
+npm install react-router-dom
+npm install react-uuid  
 
-npm install -g npm@latest
+instalar axios
+npm install axios
 
-crear app:
-npx create-react-app nombre_app
+e instala navegador para descargar en disco duro:
+npm install file-saver
 
-se mueve al directorio:
-cd nombre_app
+Instalar en la carpeta server para backend:
 
-desplegar la app o iniciar
-npm start
+instalar la backend de postgresql
+npm install pg express
+
+instalar para desbloquear el servidor localhost:3000
+npm install cors
+
+
+Para el servidor backend
+npm install express sequelize pg sequelize-cli
+
+express, pg (driver de PostgreSQL para Node.js) y body-parser para manejar las solicitudes JSON.
+npm install express pg body-parser
+
+
+
+
+
