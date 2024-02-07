@@ -8,8 +8,8 @@ export const EmployeeForm = () => {
     const navigate = useNavigate();
     const { id } = useParams();
     const [showAlert, setshowAlert] = useState(false);
+    const [isFormSubmitted, setIsFormSubmitted] = useState(false); // Nuevo estado para controlar si se ha enviado el formulario
     const { inputValues, handleInputChange, resetForm, setForm } = useForm({
-       
         name: '',
         dui: '',
         licencia: '',
@@ -34,12 +34,16 @@ export const EmployeeForm = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]); // Ignora la advertencia de ESLint para este useEffect
-    
-    
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!inputValues.name || !inputValues.dui || !inputValues.email || !inputValues.address || !inputValues.phone) {
+            setIsFormSubmitted(true); // Si faltan campos obligatorios, establece la bandera de formulario enviado
+            return;
+        }
         id ? editEmployee(id, inputValues) : addEmployee({ id: uuid(), ...inputValues });
         resetForm();
+        setIsFormSubmitted(false); // Reinicia la bandera de formulario enviado
         setshowAlert(true);
         setTimeout(() => {
             setshowAlert(false);
@@ -79,7 +83,7 @@ export const EmployeeForm = () => {
                 <form onSubmit={handleSubmit}>
                 
                     <div className="form-group">
-                        <label className="form-label mt-2" htmlFor="inputValid">Nombre</label>
+                        <label className="form-label mt-2" htmlFor="inputValid">Nombre*</label>
                         <input
                             name="name"
                             type="text"
@@ -87,11 +91,12 @@ export const EmployeeForm = () => {
                             onChange={handleInputChange}
                             className="form-control"
                             id="inputValid"
+                            required
                         />
                     </div>
                     
                     <div className="form-group">
-                        <label className="form-label mt-2" htmlFor="inputValid">Dui</label>
+                        <label className="form-label mt-2" htmlFor="inputValid">Dui*</label>
                         <input
                             name="dui"
                             type="text"
@@ -99,6 +104,7 @@ export const EmployeeForm = () => {
                             onChange={handleInputChange}
                             className="form-control"
                             id="inputValid"
+                            required
                         />
                     </div>
 
@@ -112,10 +118,11 @@ export const EmployeeForm = () => {
                             className="form-control"
                             id="inputValid"
                         />
+                        <small className="form-text text-muted">Opcional</small>
                     </div>
 
                     <div className="form-group">
-                        <label className="form-label mt-2" htmlFor="inputValid">Tarjerta de Residencia</label>
+                        <label className="form-label mt-2" htmlFor="inputValid">Tarjeta de Residencia</label>
                         <input
                             name="residencia"
                             type="text"
@@ -124,10 +131,11 @@ export const EmployeeForm = () => {
                             className="form-control"
                             id="inputValid"
                         />
+                        <small className="form-text text-muted">Opcional</small>
                     </div>
 
                     <div className="form-group">
-                        <label className="form-label mt-2" htmlFor="inputValid">Correo</label>
+                        <label className="form-label mt-2" htmlFor="inputValid">Correo*</label>
                         <input
                             name="email"
                             type="email"
@@ -135,12 +143,13 @@ export const EmployeeForm = () => {
                             onChange={handleInputChange}
                             className="form-control"
                             id="inputValid"
+                            required
                         />
                     </div>
 
 
                     <div className="form-group">
-                    <label className="form-label mt-2" htmlFor="inputValid">Dirección</label>
+                        <label className="form-label mt-2" htmlFor="inputValid">Dirección*</label>
                         <input
                             type="text"
                             name="address"
@@ -148,11 +157,12 @@ export const EmployeeForm = () => {
                             onChange={handleInputChange}
                             className="form-control"
                             id="inputValid"
+                            required
                         />
                     </div>
 
                     <div className="form-group">
-                    <label className="form-label mt-2" htmlFor="inputValid">Dirección Complementaria</label>
+                        <label className="form-label mt-2" htmlFor="inputValid">Dirección Complementaria</label>
                         <input
                             type="text"
                             name="addresscomplement"
@@ -161,10 +171,11 @@ export const EmployeeForm = () => {
                             className="form-control"
                             id="inputValid"
                         />
+                        <small className="form-text text-muted">Opcional</small>
                     </div>
 
                     <div className="form-group">
-                        <label className="form-label mt-2" htmlFor="inputValid">Celular</label>
+                        <label className="form-label mt-2" htmlFor="inputValid">Celular*</label>
                         <input
                             name="phone"
                             type="text"
@@ -172,8 +183,15 @@ export const EmployeeForm = () => {
                             onChange={handleInputChange}
                             className="form-control"
                             id="inputValid"
+                            required
                         />
                     </div>
+
+                    {isFormSubmitted && ( // Mostrar mensaje de llenar datos obligatorios si el formulario se envía sin completar los campos obligatorios
+                        <div className="alert alert-danger">
+                            Por favor, complete los campos obligatorios marcados con asterisco (*).
+                        </div>
+                    )}
 
                     <div className="d-grid gap-2 mt-3">
                         <button type="submit" className="btn btn-outline-primary btn-block">{id ? "Editar" : "Agregar"} Cliente</button>
@@ -191,4 +209,3 @@ export const EmployeeForm = () => {
         </div>
     );
 };
-
